@@ -12,6 +12,10 @@ Dentro do diretório "teste-MB"
 
 No diretório frontend do projeto, você pode executar os seguintes comandos:
 
+### `npm install`
+
+Instalas as dependências do projeto
+
 ### `npm run serve`
 
 Executa o aplicativo no modo de desenvolvimento.<br />
@@ -26,6 +30,8 @@ Compila o aplicativo para produção na pasta `dist`.<br />
 No diretório backend do projeto, você pode executar os seguintes comandos:
 
 ### `npm install`
+
+Instalas as dependências do projeto
 
 Após podemos iniciar o servidor com o comando: 
 
