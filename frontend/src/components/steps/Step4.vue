@@ -1,49 +1,58 @@
 <template>
-  <h1>Revise seus dados</h1>
+  <div class="main-container">
+    <h1>Revise seus dados</h1>
 
-  <div class="container">
-    <label>Endereço de e-mail</label>
-    <input type="text" v-model="formData.email" />
+    <div class="container">
+      <label>Endereço de e-mail</label>
+      <input type="text" v-model="formData.email" />
 
-    <label>Nome</label>
-    <input type="text" v-model="formData.nome" />
+      <label>Nome</label>
+      <input type="text" v-model="formData.nome" />
 
-    <div v-if="isPessoaFisica">
-      <label>CPF</label>
-      <input type="text" v-model="formData.cpf" />
+      <div v-if="isPessoaFisica">
+        <label>CPF</label>
+        <input type="text" v-model="formData.cpf" />
 
-      <label>Data de nascimento</label>
-      <input type="text" v-model="formData.dataNascimento" />
+        <label>Data de nascimento</label>
+        <input type="text" v-model="formData.dataNascimento" />
+      </div>
+
+      <div v-else>
+        <label>CNPJ</label>
+        <input type="text" v-model="formData.cnpj" />
+
+        <label>Data de abertura</label>
+        <input type="text" v-model="formData.dataAbertura" />
+      </div>
+
+      <label>Telefone</label>
+      <input type="text" v-model="formData.telefone" />
+
+      <label>Senha</label>
+      <input type="text" v-model="formData.senha" />
     </div>
 
-    <div v-else>
-      <label>CNPJ</label>
-      <input type="text" v-model="formData.cnpj" />
-
-      <label>Data de abertura</label>
-      <input type="text" v-model="formData.dataAbertura" />
+    <div class="footer">
+      <BackButton @back="goToPreviousStep" />
+      <RegisterButton
+        @click="register"
+        :class="{ disabled: !isStepValid }"
+        :disabled="!isStepValid"
+      />
     </div>
 
-    <label>Telefone</label>
-    <input type="text" v-model="formData.telefone" />
+    <div v-if="showDialog" class="dialog-background">
+      <div class="dialog">
+        <h3>Registro bem sucedido</h3>
+        <button @click="handleOk">OK</button>
+      </div>
+    </div>
 
-    <label>Senha</label>
-    <input type="text" v-model="formData.senha" />
-  </div>
-
-  <div class="footer">
-    <BackButton @back="goToPreviousStep" />
-    <RegisterButton
-      @click="register"
-      :class="{ disabled: !isStepValid }"
-      :disabled="!isStepValid"
-    />
-  </div>
-
-  <div v-if="showDialog" class="dialog-background">
-    <div class="dialog">
-      <h3>Registro bem sucedido</h3>
-      <button @click="handleOk">OK</button>
+    <div v-if="showDialogError" class="dialog-background">
+      <div class="dialog">
+        <h3>Registro falhou</h3>
+        <button @click="handleOk">OK</button>
+      </div>
     </div>
   </div>
 </template>
@@ -66,6 +75,7 @@ export default {
     return {
       currentStep: 1,
       showDialog: false,
+      showDialogError: false,
     };
   },
   emits: ["back", "returnToStep1"],
@@ -162,9 +172,12 @@ export default {
         });
 
         if (response.status === 200) {
-          this.showDialog = true;
+          setTimeout(() => {
+            this.showDialog = true;
+          }, 1000);
         }
       } catch (error) {
+        this.showDialogError = true;
         console.error("Erro ao enviar a solicitação:", error);
       }
     },
@@ -189,6 +202,12 @@ export default {
 </script>
 
 <style scoped>
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .dialog-background {
   position: fixed;
   top: 0;
