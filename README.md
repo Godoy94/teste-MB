@@ -6,8 +6,6 @@ Esse projeto contém 2 diretórios:
 - 1 diretório fronted onde contém toda a camada visual da aplicação
 - 1 diretório backend onde contém a camada do servidor da aplicação
 
-Dentro do diretório "teste-MB"
-
 ## Scripts Disponíveis
 
 No diretório frontend do projeto, você pode executar os seguintes comandos:
@@ -27,7 +25,7 @@ Compila o aplicativo para produção na pasta `dist`.<br />
 
 ### O build é necessário para rodar corretamente o backend da aplicação
 
-No diretório backend do projeto, você pode executar os seguintes comandos:
+### Dentro do diretório backend do projeto, execute os comandos:
 
 ### `npm install`
 
